@@ -66,7 +66,7 @@ public class Pojistovna {
         pojistenyManazer.vytvorPojisteny(jmeno, prijmeni, vek, telefon);
     }
     private void zobrazPojistene() {
-        pojistenyManazer.zobrazVsechnyPojistene();
+        System.out.println(pojistenyManazer.zobrazVsechnyPojistene());
     }
     private void vyhledejPojisteneho() {
         System.out.print(ZADEJTE_JMENO_POJISTENEHO);

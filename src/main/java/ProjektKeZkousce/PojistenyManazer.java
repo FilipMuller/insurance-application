@@ -20,11 +20,13 @@ public class PojistenyManazer {
         pojistenyList.add(newPojisteny);
     }
 
-    public void zobrazVsechnyPojistene() {
+    public String zobrazVsechnyPojistene() {
+        String output = "";
         System.out.println("Seznam pojištěných:");
         for (Pojisteny pojisteny : pojistenyList) {
-            System.out.println(pojisteny);
+            output += pojisteny + "\n ";
         }
+        return output;
     }
 
     public void zobrazPojistenehoPodleJmena(String jmeno, String prijmeni) {
