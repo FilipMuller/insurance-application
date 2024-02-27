@@ -1,34 +1,27 @@
 package ProjektKeZkousce;
 
 import java.util.Scanner;
-
-/**
- * Třída Pojistovna slouží k interakci s uživatelem.
- * Umožňuje vytvářet, zobrazovat a vyhledávat pojištěné osoby.
- */
-
 public class Pojistovna {
 
-    private final Scanner scanner; // Scanner pro načítání vstupu od uživatele
-    private final PojistenyManazer pojistenyManazer; // Správce pojištěných osob
+    private final Scanner scanner;
+    private final PojistenyManazer pojistenyManazer;
 
-    // Konstantní řetězce pro výzvy uživatele.
     public static final String ZADEJTE_JMENO_POJISTENEHO = "Zadejte jméno pojištěného: ";
     public static final String ZADEJTE_PRIJMENI_POJISTENEHO = "Zadejte příjmení pojištěného: ";
 
-    /**
-     * Konstruktor třídy Pojistovna inicializuje scanner pro vstup od uživatele
-     * a správce pojištěných osob. Následně spouští hlavní smyčku interakce s uživatelem.
-     */
     public Pojistovna() {
         this.pojistenyManazer = new PojistenyManazer();
         this.scanner = new Scanner(System.in);
 
-        while (true) { // Hlavní smyčka interakce s uživatelem s konstrukcí switch, kde se volají pouze metody.
+        while (true) {
             System.out.println("\n1. Vytvořit nového pojištěného");
             System.out.println("2. Zobrazit seznam všech pojištěných");
             System.out.println("3. Vyhledat pojištěného podle jména a příjmení");
             System.out.println("4. Konec");
+            if (pojistenyManazer.existujePojisteny()) {
+                System.out.println("5. Přidej pojištění");
+            }
+
 
             System.out.print("\nVyberte možnost: ");
             int volba = scanner.nextInt();
@@ -46,12 +39,20 @@ public class Pojistovna {
                     break;
                 case 4:
                     ukonciAplikaci();
+                    break;
+                case 5:
+                    if (!pojistenyManazer.existujePojisteny()) {
+                        System.out.println("Nejdříve přidej pojištěného");
+                    }
+                    else {
+                        pridejPojisteni();
+                    }
+                    break;
                 default:
                     System.out.println("Neplatná volba. Zvolte možnost znovu.");
             }
         }
     }
-    // Metoda pro přidání nového pojištěného
     private void pridejPojisteneho() {
         System.out.print(ZADEJTE_JMENO_POJISTENEHO);
         String jmeno = scanner.nextLine();
@@ -64,11 +65,9 @@ public class Pojistovna {
         String telefon = scanner.nextLine();
         pojistenyManazer.vytvorPojisteny(jmeno, prijmeni, vek, telefon);
     }
-    // Metoda pro zobrazení všech pojištěných osob
     private void zobrazPojistene() {
-        System.out.println(pojistenyManazer.zobrazVsechnyPojistene());
+        pojistenyManazer.zobrazVsechnyPojistene();
     }
-    // Metoda pro vyhledání pojištěného podle jména a příjmení
     private void vyhledejPojisteneho() {
         System.out.print(ZADEJTE_JMENO_POJISTENEHO);
         String najdiPodleJmena = scanner.nextLine();
@@ -76,11 +75,34 @@ public class Pojistovna {
         String najdiPodlePrijmeni = scanner.nextLine();
         pojistenyManazer.zobrazPojistenehoPodleJmena(najdiPodleJmena, najdiPodlePrijmeni);
     }
-    // Metoda pro ukončení aplikace
     private void ukonciAplikaci() {
         System.out.println("Ukončení aplikace.");
         scanner.close();
         System.exit(0);
     }
+    private void pridejPojisteni() {
+        System.out.println("Zadej částku pro případ pojištění smrti");
+        int smrt = Integer.parseInt(scanner.nextLine());
+
+        System.out.println("Zadej částku pro případ pojištění velmi vážných onemocnění");
+        int vvo = Integer.parseInt(scanner.nextLine());
+
+        System.out.println("Zadej částku pro případ pojištění trvalých následků úrazu");
+        int tn = Integer.parseInt(scanner.nextLine());
+
+        Castky castky = new Castky(smrt, vvo, tn);
+
+        System.out.printf("Pojištění smrti:%d, Pojištění VVO:%d, Pojištění trvalých následků:%d%n", smrt, vvo, tn);
+        System.out.println("Zadej příjmení pojištěné, kterému chceš pojištění přiřadit");
+        zobrazPojistene();
+
+        String prijmeniPojisteneho = scanner.nextLine();
+        Pojisteny pojisteny = pojistenyManazer.vyhledejPojisteneheDlePrijmeni(prijmeniPojisteneho);
+        if (pojisteny == null) {
+            System.out.println("Pojištěná osoba nenalezena.");
+        }
+        pojisteny.setCastky(castky);
+    }
 }
 
+//TODO otrimovat častky ve tvorbě pojištění // v zadávaní telefonu to máš

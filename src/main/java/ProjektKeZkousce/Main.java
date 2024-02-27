@@ -1,11 +1,12 @@
 package ProjektKeZkousce;
 
-import java.util.Scanner;
+import ProjektKeZkousce.Pojistovna;
 
 public class Main {
 
     public static void main(String[] args) {
-
-        Pojistovna pojistovna = new Pojistovna(); // Vytvoření objektu pojišťovna a spuštění aplikace
+        Pojistovna pojistovna = new Pojistovna();
     }
 }
+
+
