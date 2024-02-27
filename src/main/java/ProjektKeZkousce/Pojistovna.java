@@ -55,14 +55,14 @@ public class Pojistovna {
     }
     private void pridejPojisteneho() {
         System.out.print(ZADEJTE_JMENO_POJISTENEHO);
-        String jmeno = scanner.nextLine();
+        String jmeno = scanner.nextLine().trim().replace(" ", "");
         System.out.print(ZADEJTE_PRIJMENI_POJISTENEHO);
-        String prijmeni = scanner.nextLine();
+        String prijmeni = scanner.nextLine().trim().replace(" ", "");
         System.out.print("Zadejte věk pojištěného: ");
-        int vek = scanner.nextInt();
-        scanner.nextLine();
+        String vekInput = scanner.nextLine().trim().replace(" ", "");
+        int vek = Integer.parseInt(vekInput);
         System.out.print("Zadejte telefonní číslo pojištěného: ");
-        String telefon = scanner.nextLine();
+        String telefon = scanner.nextLine().trim().replace(" ", "");
         pojistenyManazer.vytvorPojisteny(jmeno, prijmeni, vek, telefon);
     }
     private void zobrazPojistene() {
@@ -70,9 +70,9 @@ public class Pojistovna {
     }
     private void vyhledejPojisteneho() {
         System.out.print(ZADEJTE_JMENO_POJISTENEHO);
-        String najdiPodleJmena = scanner.nextLine();
+        String najdiPodleJmena = scanner.nextLine().trim().replace(" ", "");
         System.out.print(ZADEJTE_PRIJMENI_POJISTENEHO);
-        String najdiPodlePrijmeni = scanner.nextLine();
+        String najdiPodlePrijmeni = scanner.nextLine().trim().replace(" ", "");;
         pojistenyManazer.zobrazPojistenehoPodleJmena(najdiPodleJmena, najdiPodlePrijmeni);
     }
     private void ukonciAplikaci() {
@@ -82,13 +82,13 @@ public class Pojistovna {
     }
     private void pridejPojisteni() {
         System.out.println("Zadej částku pro případ pojištění smrti");
-        int smrt = Integer.parseInt(scanner.nextLine());
+        int smrt = Integer.parseInt(scanner.nextLine().trim().replace(" ", ""));
 
         System.out.println("Zadej částku pro případ pojištění velmi vážných onemocnění");
-        int vvo = Integer.parseInt(scanner.nextLine());
+        int vvo = Integer.parseInt(scanner.nextLine().trim().replace(" ", ""));
 
         System.out.println("Zadej částku pro případ pojištění trvalých následků úrazu");
-        int tn = Integer.parseInt(scanner.nextLine());
+        int tn = Integer.parseInt(scanner.nextLine().trim().replace(" ", ""));
 
         Castky castky = new Castky(smrt, vvo, tn);
 
@@ -104,5 +104,3 @@ public class Pojistovna {
         pojisteny.setCastky(castky);
     }
 }
-
-//TODO otrimovat častky ve tvorbě pojištění // v zadávaní telefonu to máš
