@@ -3,7 +3,6 @@ package ProjektKeZkousce;
 import java.util.Scanner;
 
 public class Main {
-
     public static final String ZADEJTE_JMENO_POJISTENEHO = "Zadejte jméno pojištěného: ";
     public static final String ZADEJTE_PRIJMENI_POJISTENEHO = "Zadejte příjmení pojištěného: ";
 
@@ -54,3 +53,4 @@ public class Main {
         }
     }
 }
+
